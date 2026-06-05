@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Bhoomi</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #05060d;
+      --bg2: #0a1020;
+      --text: #f8fbff;
+      --muted: rgba(248, 251, 255, 0.66);
+      --soft: rgba(248, 251, 255, 0.82);
+      --line: rgba(255, 255, 255, 0.13);
+      --panel: rgba(255, 255, 255, 0.06);
+      --panel2: rgba(255, 255, 255, 0.105);
+      --cyan: #67e8f9;
+      --mint: #86efac;
+      --blue: #7aa2ff;
+      --violet: #a78bfa;
+      --rose: #fb7185;
+      --gold: #facc15;
+      --shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: Inter, "Segoe UI", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(103, 232, 249, 0.16), transparent 30%),
+        radial-gradient(circle at 82% 10%, rgba(134, 239, 172, 0.12), transparent 30%),
+        radial-gradient(circle at 52% 108%, rgba(167, 139, 250, 0.14), transparent 34%),
+        linear-gradient(135deg, #02040a, #08101f 52%, #05060d);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.16;
+      background:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: radial-gradient(circle at center, black, transparent 76%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(
+        circle at var(--mx, 50%) var(--my, 50%),
+        rgba(103, 232, 249, 0.10),
+        transparent 26%
+      );
+    }
+
+    .orb {
+      position: fixed;
+      width: 430px;
+      height: 430px;
+      border-radius: 50%;
+      filter: blur(92px);
+      opacity: 0.22;
+      z-index: 0;
+      pointer-events: none;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+
+    .orb.one {
+      background: var(--cyan);
+      left: -160px;
+      top: 80px;
+    }
+
+    .orb.two {
+      background: var(--mint);
+      right: -160px;
+      top: 240px;
+      animation-delay: 2s;
+    }
+
+    .orb.three {
+      background: var(--violet);
+      left: 42%;
+      bottom: -210px;
+      opacity: 0.16;
+      animation-delay: 4s;
+    }
+
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to { transform: translate(54px,-42px) scale(1.16); }
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 3;
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: fixed;
+      z-index: 50;
+      left: 50%;
+      top: 18px;
+      transform: translateX(-50%);
+      width: min(760px, calc(100% - 28px));
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .nav-inner {
+      pointer-events: auto;
+      display: flex;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 999px;
+      background: rgba(5, 6, 13, 0.74);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.36);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      white-space: nowrap;
+      transition: 0.22s ease;
+    }
+
+    .nav a:hover {
+      background: rgba(255,255,255,0.09);
+      color: var(--text);
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 88px 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(14px);
+    }
+
+    .tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 18px var(--mint);
+    }
+
+    h1 {
+      font-size: clamp(54px, 8.4vw, 116px);
+      line-height: 0.88;
+      letter-spacing: -5px;
+      margin-bottom: 30px;
+      background: linear-gradient(90deg, #ffffff, #c7fff3, #c9d6ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 700px;
+      font-size: clamp(17px, 2vw, 22px);
+      line-height: 1.72;
+      margin-bottom: 18px;
+    }
+
+    .lead strong {
+      color: white;
+      font-weight: 850;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      border: 0;
+      outline: 0;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 15px 22px;
+      font-family: inherit;
+      font-weight: 850;
+      font-size: 15px;
+      transition: 0.24s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      color: #021114;
+      background: linear-gradient(135deg, #ffffff, var(--mint));
+      box-shadow: 0 18px 46px rgba(134, 239, 172, 0.20);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 24px 58px rgba(134, 239, 172, 0.32);
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      background: rgba(255,255,255,0.065);
+      border: 1px solid var(--line);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-3px);
+    }
+
+    .stage {
+      min-height: 650px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      perspective: 1400px;
+    }
+
+    .hero-object {
+      width: min(560px, 92vw);
+      height: 560px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: heroFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes heroFloat {
+      0%, 100% {
+        transform: rotateX(62deg) rotateZ(-24deg) translateY(0);
+      }
+
+      50% {
+        transform: rotateX(66deg) rotateZ(-17deg) translateY(-18px);
+      }
+    }
+
+    .base {
+      position: absolute;
+      inset: 105px 70px;
+      border-radius: 44px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.025)),
+        linear-gradient(145deg, #0a1a2f, #030811);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow:
+        0 58px 140px rgba(0,0,0,0.48),
+        inset 0 0 80px rgba(103,232,249,0.04);
+      overflow: hidden;
+    }
+
+    .base::before {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      border-radius: 32px;
+      border: 1px solid rgba(103,232,249,0.18);
+    }
+
+    .reveal-card {
+      position: absolute;
+      width: 275px;
+      height: 370px;
+      left: 145px;
+      top: 42px;
+      border-radius: 34px;
+      padding: 24px;
+      transform: translateZ(135px) rotateX(-62deg) rotateZ(15deg);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
+      border: 1px solid rgba(103,232,249,0.30);
+      backdrop-filter: blur(18px);
+      box-shadow:
+        0 42px 100px rgba(0,0,0,0.42),
+        0 0 50px rgba(103,232,249,0.13),
+        inset 0 0 50px rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+
+    .reveal-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(103,232,249,0.18), transparent);
+      animation: shimmer 4s linear infinite;
+    }
+
+    @keyframes shimmer {
+      from { transform: translateX(-90%); }
+      to { transform: translateX(90%); }
+    }
+
+    .reveal-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .kicker {
+      color: rgba(247,248,255,0.58);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .hero-name {
+      font-size: 46px;
+      font-weight: 950;
+      line-height: 0.95;
+      letter-spacing: -2px;
+      margin-top: 12px;
+    }
+
+    .hero-line {
+      width: 70px;
+      height: 4px;
+      border-radius: 999px;
+      margin-top: 16px;
+      background: var(--cyan);
+      box-shadow: 0 0 22px var(--cyan);
+    }
+
+    .hero-bottom {
+      color: rgba(247,248,255,0.72);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .float-card {
+      position: absolute;
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(247,248,255,0.78);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.30);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .float-card.one {
+      width: 180px;
+      right: 38px;
+      bottom: 100px;
+      transform: translateZ(150px) rotateX(-62deg) rotateZ(-12deg);
+    }
+
+    .float-card.two {
+      width: 180px;
+      left: 42px;
+      bottom: 132px;
+      transform: translateZ(150px) rotateX(-62deg) rotateZ(10deg);
+    }
+
+    .panel {
+      width: 100%;
+      border-radius: 44px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.085), rgba(255,255,255,0.028));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(24px);
+      padding: clamp(30px, 5vw, 64px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      width: 560px;
+      height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(103,232,249,0.085), transparent 62%);
+      right: -260px;
+      top: -260px;
+    }
+
+    .panel-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title {
+      font-size: clamp(40px, 6vw, 82px);
+      line-height: 0.98;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+      background: linear-gradient(90deg, #ffffff, #c7fff3, #c9d6ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .section-text {
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.82;
+      max-width: 860px;
+      margin-bottom: 34px;
+    }
+
+    .journey {
+      display: grid;
+      gap: 24px;
+      margin-top: 34px;
+    }
+
+    .journey-card {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: stretch;
+      border-radius: 34px;
+      padding: 18px;
+      background: rgba(255,255,255,0.052);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .journey-card.reverse {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .visual-card {
+      min-height: 300px;
+      border-radius: 26px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.12);
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,0.16), transparent 26%),
+        radial-gradient(circle at 72% 70%, rgba(103,232,249,0.16), transparent 30%),
+        linear-gradient(135deg, rgba(103,232,249,0.12), rgba(167,139,250,0.08));
+      display: grid;
+      place-items: center;
+    }
+
+    .visual-card::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.14);
+      animation: rotate 14s linear infinite;
+    }
+
+    .visual-card::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 40px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      transform: rotate(12deg);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.30);
+    }
+
+    @keyframes rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    .visual-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 22px;
+    }
+
+    .visual-text .big {
+      font-size: clamp(34px, 5vw, 54px);
+      font-weight: 950;
+      letter-spacing: -2px;
+      line-height: 0.95;
+    }
+
+    .visual-text .small {
+      color: var(--muted);
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .journey-copy {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .journey-copy span {
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .journey-copy h3 {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.02;
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+
+    .journey-copy p {
+      color: var(--muted);
+      font-size: 16.5px;
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+
+    .humour {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.11);
+      color: rgba(247,248,255,0.80);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .pair-zone {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .pair-model {
+      min-height: 480px;
+      border-radius: 36px;
+      background:
+        radial-gradient(circle at center, rgba(103,232,249,0.10), transparent 34%),
+        linear-gradient(145deg, rgba(122,162,255,0.07), rgba(167,139,250,0.08));
+      border: 1px solid rgba(255,255,255,0.13);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    .equation {
+      width: min(370px, 86%);
+      display: grid;
+      gap: 14px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eq-card {
+      padding: 22px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.075);
+      border: 1px solid rgba(255,255,255,0.13);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.26);
+      text-align: center;
+      font-weight: 900;
+      font-size: 22px;
+    }
+
+    .eq-symbol {
+      color: var(--cyan);
+      font-size: 28px;
+      text-align: center;
+      font-weight: 900;
+    }
+
+    .lines {
+      display: grid;
+      gap: 14px;
+    }
+
+    .line-item {
+      padding: 20px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .line-item span {
+      display: block;
+      color: var(--cyan);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .line-item p {
+      color: rgba(247,248,255,0.78);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .reply-zone {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .reply-intro {
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 35% 20%, rgba(103,232,249,0.10), transparent 35%),
+        rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 30px;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .reply-intro h2 {
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    .reply-intro p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .reply-note {
+      margin-top: 24px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(247,248,255,0.72);
+      font-size: 14.5px;
+      line-height: 1.7;
+    }
+
+    form {
+      border-radius: 34px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.13);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      color: rgba(247,248,255,0.78);
+      font-weight: 760;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.14);
+      outline: none;
+      border-radius: 18px;
+      padding: 15px 16px;
+      background: rgba(0,0,0,0.30);
+      color: var(--text);
+      font: inherit;
+      transition: 0.2s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(103,232,249,0.54);
+      box-shadow: 0 0 0 4px rgba(103,232,249,0.10);
+    }
+
+    textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    select option {
+      color: #111827;
+    }
+
+    .chips {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .chip {
+      position: relative;
+    }
+
+    .chip input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .chip span {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(255,255,255,0.052);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(247,248,255,0.76);
+      font-size: 14px;
+      line-height: 1.45;
+      transition: 0.2s ease;
+    }
+
+    .chip input:checked + span {
+      background: rgba(103,232,249,0.13);
+      border-color: rgba(103,232,249,0.48);
+      color: white;
+      box-shadow: 0 0 0 4px rgba(103,232,249,0.08);
+    }
+
+    .chip.stop input:checked + span {
+      background: rgba(251,113,133,0.13);
+      border-color: rgba(251,113,133,0.48);
+      box-shadow: 0 0 0 4px rgba(251,113,133,0.08);
+    }
+
+    .status {
+      margin-top: 16px;
+      min-height: 22px;
+      color: rgba(247,248,255,0.74);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .final-box {
+      max-width: 760px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .final-box p {
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+
+    .signature {
+      margin-top: 32px;
+      color: var(--cyan);
+      font-size: 18px;
+    }
+
+    @media (max-width: 980px) {
+      section {
+        min-height: auto;
+        padding: 64px 0;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: 100vh;
+        gap: 36px;
+        padding-top: 86px;
+      }
+
+      h1 {
+        letter-spacing: -2.6px;
+      }
+
+      .stage {
+        min-height: 560px;
+      }
+
+      .hero-object {
+        transform: scale(0.88);
+        animation: none;
+      }
+
+      .journey-card,
+      .journey-card.reverse,
+      .pair-zone,
+      .reply-zone {
+        grid-template-columns: 1fr;
+      }
+
+      .journey-card.reverse .visual-card {
+        order: 1;
+      }
+
+      .journey-card.reverse .journey-copy {
+        order: 2;
+      }
+
+      .pair-model {
+        min-height: 360px;
+      }
+
+      .panel {
+        border-radius: 34px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .nav {
+        display: none;
+      }
+
+      section {
+        padding: 38px 0;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      h1 {
+        font-size: 50px;
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .stage {
+        min-height: 430px;
+        overflow: hidden;
+      }
+
+      .hero-object {
+        transform: scale(0.62);
+        transform-origin: center;
+      }
+
+      .panel {
+        padding: 26px 20px;
+      }
+
+      .section-title {
+        font-size: 39px;
+        letter-spacing: -1.8px;
+      }
+
+      .section-text {
+        font-size: 15.5px;
+      }
+
+      .journey-card {
+        padding: 12px;
+        border-radius: 28px;
+      }
+
+      .visual-card {
+        min-height: 220px;
+      }
+
+      .journey-copy {
+        padding: 12px;
+      }
+
+      .journey-copy h3 {
+        font-size: 28px;
+      }
+
+      .journey-copy p,
+      .line-item p {
+        font-size: 15.5px;
+      }
+
+      .pair-model {
+        min-height: 300px;
+      }
+
+      .chips {
+        grid-template-columns: 1fr;
+      }
+
+      .chip span {
+        min-height: auto;
+      }
+
+      form,
+      .reply-intro {
+        padding: 22px;
+        border-radius: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#start">Start</a>
+      <a href="#reveal">Reveal</a>
+      <a href="#journey">Story</a>
+      <a href="#pair">Tiny theory</a>
+      <a href="#reply">Your turn</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section id="start" class="hero">
+      <div>
+        <div class="tag">
+          <span class="tag-dot"></span>
+          since you asked
+        </div>
+
+        <h1></h1>
+
+        <p class="lead">
+          You asked who I am.
+        </p>
+
+        <p class="lead">
+          A normal person would answer in one line.
+          Unfortunately, my brain saw that option and said, <strong>“Too simple.”</strong>
+        </p>
+
+        <p class="lead">
+          So here is the slightly better version.
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="#reveal">Start reveal</a>
+          <a class="btn btn-ghost" href="#reply">Reply directly</a>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="hero-object">
+          <div class="base"></div>
+
+          <div class="reveal-card">
+            <div class="reveal-content">
+              <div>
+                <div class="kicker">identity</div>
+                <div class="hero-name">Revealing<br>slowly</div>
+                <div class="hero-line"></div>
+              </div>
+
+              <div class="hero-bottom">
+                No suspense thriller. Just a better intro.
+              </div>
+            </div>
+          </div>
+
+          <div class="float-card one">
+            calm person, questionable presentation skills
+          </div>
+
+          <div class="float-card two">
+            profile loading politely...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reveal">
+      <div class="panel">
+        <div class="panel-content">
+          <div class="tag">
+            <span class="tag-dot"></span>
+            reveal
+          </div>
+
+          <h2 class="section-title">Balaji Sai Charan.</h2>
+
+          <p class="section-text">
+            Yes, the name is long enough to sound like it needs its own attendance register.
+            But that’s me.
+          </p>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="#journey">Show context</a>
+            <a class="btn btn-ghost" href="#reply">Your answer</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey">
+      <div class="panel">
+        <div class="panel-content">
+          <div class="tag">
+            <span class="tag-dot"></span>
+            short version
+          </div>
+
+          <h2 class="section-title">Three parts. One weirdly consistent route.</h2>
+
+          <p class="section-text">
+            Vizag, engineering, data science. Somehow all three explain me better than one bio line.
+          </p>
+
+          <div class="journey">
+            <div class="journey-card">
+              <div class="visual-card">
+                <div class="visual-text">
+                  <div class="big">Vizag</div>
+                  <div class="small">Andhra Pradesh</div>
+                </div>
+              </div>
+
+              <div class="journey-copy">
+                <span>from</span>
+                <h3>Vizag, Andhra Pradesh</h3>
+                <p>
+                  Beach city, calm pace, and the kind of place that makes people look more peaceful than their browser tabs actually are.
+                </p>
+                <div class="humour">
+                  I’m genuinely a calm person. This whole webpage situation is just my calmness wearing a little creativity.
+                </div>
+              </div>
+            </div>
+
+            <div class="journey-card reverse">
+              <div class="journey-copy">
+                <span>studied</span>
+                <h3>Mechanical Engineering at IIT Dhanbad</h3>
+                <p>
+                  I studied machines for four years, then chose data science as my career path.
+                  Weird, right?
+                </p>
+                <div class="humour">
+                  You can probably understand that pattern from my choice of contacting you too:
+                  normal path available, interesting path selected.
+                </div>
+              </div>
+
+              <div class="visual-card">
+                <div class="visual-text">
+                  <div class="big">IIT<br>Dhanbad</div>
+                  <div class="small">Mechanical Engineering</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="journey-card">
+              <div class="visual-card">
+                <div class="visual-text">
+                  <div class="big">ZS</div>
+                  <div class="small">Data Science</div>
+                </div>
+              </div>
+
+              <div class="journey-copy">
+                <span>now</span>
+                <h3>Data Science at ZS Associates</h3>
+                <p>
+                  Now I work with data at ZS Associates.
+                  Most days, I try to find patterns in messy information and make it look sensible.
+                </p>
+                <div class="humour">
+                  Basically, I help data make better decisions.
+                  Outside work, as this page proves, my own decisions are still under review.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="#pair">Continue</a>
+            <a class="btn btn-ghost" href="#reply">Your turn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pair">
+      <div class="panel">
+        <div class="panel-content pair-zone">
+          <div class="pair-model">
+            <div class="equation">
+              <div class="eq-card">Engineering</div>
+              <div class="eq-symbol">+</div>
+              <div class="eq-card">Finance</div>
+              <div class="eq-symbol">=</div>
+              <div class="eq-card">Maybe worth testing</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="tag">
+              <span class="tag-dot"></span>
+              tiny theory
+            </div>
+
+            <h2 class="section-title">Engineering plus finance sounds interesting.</h2>
+
+            <p class="section-text">
+              I work with data, so I usually believe things should have evidence.
+              This time I don’t have any data.
+              Still, I have a small feeling that this combination could work better than expected.
+            </p>
+
+            <div class="lines">
+              <div class="line-item">
+                <span>my side</span>
+                <p>Engineering background, data work, calm personality, and one slightly overbuilt introduction page.</p>
+              </div>
+
+              <div class="line-item">
+                <span>your side</span>
+                <p>Finance, from what I know. I won’t pretend I know more than that.</p>
+              </div>
+
+              <div class="line-item">
+                <span>the idea</span>
+                <p>No big claim. Just one normal conversation. The data can come later.</p>
+              </div>
+            </div>
+
+            <div class="actions">
+              <a class="btn btn-primary" href="#reply">Open reply form</a>
+              <a class="btn btn-ghost" href="#start">Back</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reply">
+      <div class="panel">
+        <div class="panel-content reply-zone">
+          <div class="reply-intro">
+            <div>
+              <div class="tag">
+                <span class="tag-dot"></span>
+                your turn
+              </div>
+
+              <h2>Your turn, only if you want.</h2>
+
+              <p>
+                No need to write a perfect reply. Pick the closest option, or add your own line if none of these fit.
+              </p>
+            </div>
+
+            <div class="reply-note">
+              This only sends what you choose to submit. No hidden tracking. No guessing game.
+            </div>
+          </div>
+
+          <form id="replyForm">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" value="Bhoomi" />
+            </div>
+
+            <div class="field">
+              <label>Pick the closest one</label>
+
+              <div class="chips">
+                <label class="chip">
+                  <input type="radio" name="choice" value="Hi Charan, okay, we can talk." checked />
+                  <span>Hi Charan, okay, we can talk.</span>
+                </label>
+
+                <label class="chip">
+                  <input type="radio" name="choice" value="I need to know more first." />
+                  <span>I need to know more first.</span>
+                </label>
+
+                <label class="chip">
+                  <input type="radio" name="choice" value="This was unexpected, but I read it." />
+                  <span>This was unexpected, but I read it.</span>
+                </label>
+
+                <label class="chip">
+                  <input type="radio" name="choice" value="Give me some time." />
+                  <span>Give me some time.</span>
+                </label>
+
+                <label class="chip stop">
+                  <input type="radio" name="choice" value="I’m not interested right now." />
+                  <span>I’m not interested right now.</span>
+                </label>
+
+                <label class="chip stop">
+                  <input type="radio" name="choice" value="Please do not continue this." />
+                  <span>Please do not continue this.</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="comfort">Comfort level</label>
+              <select id="comfort" name="comfort">
+                <option value="Comfortable to talk">Comfortable to talk</option>
+                <option value="Maybe, slowly">Maybe, slowly</option>
+                <option value="Not sure yet">Not sure yet</option>
+                <option value="Not interested right now">Not interested right now</option>
+                <option value="Not comfortable">Not comfortable</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="aboutHer">Anything you want me to know</label>
+              <textarea
+                id="aboutHer"
+                name="aboutHer"
+                placeholder="A line, a warning, a question, or nothing at all."
+              ></textarea>
+            </div>
+
+            <div class="field">
+              <label for="message">Your message</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Write anything you want to say..."
+              ></textarea>
+            </div>
+
+            <div class="field">
+              <label for="contactBack">What should I do next?</label>
+              <select id="contactBack" name="contactBack">
+                <option value="Reply by email">Reply by email</option>
+                <option value="Wait, I will message first">Wait, I will message first</option>
+                <option value="Do not continue">Do not continue</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+              Send answer
+            </button>
+
+            <a
+              class="btn btn-ghost"
+              style="margin-top: 12px;"
+              id="emailButton"
+              href="#"
+            >
+              Or email directly
+            </a>
+
+            <div class="status" id="status"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="end">
+      <div class="panel">
+        <div class="panel-content final-box">
+          <div class="tag" style="margin-inline:auto;">
+            <span class="tag-dot"></span>
+            end
+          </div>
+
+          <h2 class="section-title">That’s my side.</h2>
+
+          <p>
+            Excited to hear from you.
+          </p>
+
+          <p>
+            Take care
+          </p>
+
+          <div class="actions" style="justify-content:center;">
+            <a class="btn btn-primary" href="#reply">Reply</a>
+            <a class="btn btn-ghost" href="#start">Start again</a>
+          </div>
+
+          <div class="signature">— Charan</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzUsEQ1KOLgZNPRcmGnwnaPEPj8pBBP0HyzzFgDk06RVMUcB3vNj47P-SZfRIqwfoV5/exec";
+    const EMAIL = "charan48265@gmail.com";
+
+    const form = document.getElementById("replyForm");
+    const statusBox = document.getElementById("status");
+    const stage = document.querySelector(".stage");
+    const emailButton = document.getElementById("emailButton");
+
+    emailButton.href = `mailto:${EMAIL}?subject=Hi Charan&body=Hi Charan,`;
+
+    document.addEventListener("mousemove", function(event) {
+      const x = (event.clientX / window.innerWidth) * 100;
+      const y = (event.clientY / window.innerHeight) * 100;
+
+      document.body.style.setProperty("--mx", x + "%");
+      document.body.style.setProperty("--my", y + "%");
+
+      if (window.innerWidth > 980 && stage) {
+        const rx = (event.clientX / window.innerWidth - 0.5) * 12;
+        const ry = (event.clientY / window.innerHeight - 0.5) * 12;
+
+        stage.style.transform = `rotateY(${rx * 0.25}deg) rotateX(${-ry * 0.15}deg)`;
+      }
+    });
+
+    document.addEventListener("mouseleave", function() {
+      if (!stage || window.innerWidth < 980) return;
+      stage.style.transform = "rotateY(0deg) rotateX(0deg)";
+    });
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+
+      const payload = {
+        name: formData.get("name"),
+        choice: formData.get("choice"),
+        comfort: formData.get("comfort"),
+        aboutHer: formData.get("aboutHer"),
+        message: formData.get("message"),
+        contactBack: formData.get("contactBack")
+      };
+
+      statusBox.textContent = "Sending...";
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        statusBox.textContent = "Sent.";
+        form.reset();
+        document.getElementById("name").value = "Bhoomi";
+      } catch (error) {
+        statusBox.textContent = "Something went wrong. You can use the email button instead.";
+      }
+    });
+  </script>
+</body>
+</html>
